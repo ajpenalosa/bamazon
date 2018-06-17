@@ -82,7 +82,7 @@ function startShopping() {
                     // If there is enough stock, continue with purchase
                     if ( result[0].stock_quantity > answer.quantity ) {
 
-                        // Subtract 1 from the quantity
+                        // Subtract quantity purchase from the stock quantity
                         result[0].stock_quantity -= answer.quantity;
 
                         // Update the quantity in the database
@@ -90,8 +90,12 @@ function startShopping() {
                             "UPDATE products SET stock_quantity = ? WHERE product_name = ?", [result[0].stock_quantity, answer.product], function(error) {
                                 if (error) throw error;
 
-                                console.log("\r\nThank you for your purchase. You will get an e-mail confirmation when your item ships.\r\n");
+                                // Calculating price
+                                var total = result[0].price * answer.quantity;
 
+                                console.log("\r\nThank you for your purchase. Your order total is $" + total.toFixed(2) + "\r\nYou will receive an e-mail confirmation when your item ships.\r\n");
+
+                                // Prompt user if they want to make another purchase
                                 makeAnotherPurchase();
 
                             }
