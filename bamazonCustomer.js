@@ -80,32 +80,29 @@ function startShopping() {
                     if (error) throw error;
 
                     // If there is enough stock, continue with purchase
-                    if ( result[0].stock_quantity > 0 ) {
-                        console.log("Sweet, there's enough to buy!");
+                    if ( result[0].stock_quantity > answer.quantity ) {
+
+                        // Subtract 1 from the quantity
+                        result[0].stock_quantity -= answer.quantity;
+
+                        // Update the quantity in the database
+                        connection.query(
+                            "UPDATE products SET stock_quantity = ? WHERE product_name = ?", [result[0].stock_quantity, answer.product], function(error) {
+                                if (error) throw error;
+
+                                console.log("\r\nThank you for your purchase. You will get an e-mail confirmation when your item ships.\r\n");
+
+                                makeAnotherPurchase();
+
+                            }
+                        );
+
                     }
                     else {
                         // If not enough stock, notify user it is out of stock
-                        console.log("\r\nSorry! That product is out of stock.\r\n");
+                        console.log("\r\nSorry! Insufficient quantity.\r\n");
 
-                        // Ask user if they would like to purchase something else
-                        inquirer.prompt([
-                            {
-                                name: "another",
-                                type: "confirm",
-                                message: "Would you like to purchase another item?"
-                            }
-                        ])
-                        .then(function(answer) {
-                            if ( answer.another ) {
-                                // Take user back to the beginning
-                                startShopping();
-                            }
-                            else {
-                                // If user chooses no, then end the connection
-                                console.log("\r\nThank you for shopping at bAmazon. See you next time!\r\n");
-                                connection.end();
-                            }
-                        })
+                        makeAnotherPurchase();
                     }
                 }
             );
@@ -114,3 +111,27 @@ function startShopping() {
     });
 
 }; // End of startShopping()
+
+function makeAnotherPurchase() {
+
+    // Ask user if they would like to purchase something else
+    inquirer.prompt([
+        {
+            name: "another",
+            type: "confirm",
+            message: "Would you like to purchase another item?"
+        }
+    ])
+    .then(function(answer) {
+        if ( answer.another ) {
+            // Take user back to the beginning
+            startShopping();
+        }
+        else {
+            // If user chooses no, then end the connection
+            console.log("\r\nThank you for shopping at bAmazon. See you next time!\r\n");
+            connection.end();
+        }
+    })
+
+} // End of makeAnotherPurchase()
