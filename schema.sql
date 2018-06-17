@@ -23,6 +23,8 @@ VALUES
 ( "Black Panther", "Movies", 17.00, 6),
 ( "Justice League", "Movies", 10.00, 7),
 ( "Jumanji", "Movies", 10.10, 2),
-( "Sony KD60X690E 60-Inch 4K Ultra HD Smart LED TV", "Television & Video", 698.00, 10),
-( "LG Electronics 65UJ7700 65-Inch 4K Ultra HD Smart LED TV", "Television & Video", 939.00, 10),
-( "Samsung 65NU8000 Flat 65-Inch 4K UHD 8 Series Smart LED TV", "Television & Video", 1397.99, 10)
+( "Sony 60-Inch 4K Ultra HD TV", "Television & Video", 698.00, 10),
+( "LG 65-Inch 4K Ultra HD TV", "Television & Video", 939.00, 10),
+( "Samsung 65-Inch 4K UHD TV", "Television & Video", 1397.99, 0);
+
+SELECT * FROM products;
