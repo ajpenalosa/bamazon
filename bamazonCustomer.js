@@ -40,11 +40,11 @@ function startShopping() {
         if (error) throw error;
 
         // Creating a string to be used in the cliui module to display items in columns
-        var productList = "ITEM ID \t PRODUCT NAME \t DEPARTMENT \t PRICE\t STOCK \n" + "------- \t ------------\t ----------\t -----\t -----\n";
+        var productList = "ITEM ID \t PRODUCT NAME \t DEPARTMENT \t PRICE\n" + "------- \t ------------\t ----------\t -----\n";
 
         // Looping through all the items in the database
         for ( var i = 0; i < results.length; i++ ) {
-            productList += results[i].item_id + "\t " + results[i].product_name + "\t "  + results[i].department_name + "\t "  + results[i].price + "\t " + results[i].stock_quantity + "\n";
+            productList += results[i].item_id + "\t " + results[i].product_name + "\t "  + results[i].department_name + "\t "  + results[i].price + "\n";
             productInquirer.push(results[i].product_name);
         }
         
@@ -82,18 +82,18 @@ function startShopping() {
                     // If there is enough stock, continue with purchase
                     if ( result[0].stock_quantity > answer.quantity ) {
 
+                        // Calculating total price
+                        var total = (result[0].price * answer.quantity).toFixed(2);
+
                         // Subtract quantity purchase from the stock quantity
                         result[0].stock_quantity -= answer.quantity;
 
                         // Update the quantity in the database
                         connection.query(
-                            "UPDATE products SET stock_quantity = ? WHERE product_name = ?", [result[0].stock_quantity, answer.product], function(error) {
+                            "UPDATE products SET stock_quantity = ?, product_sales = ? WHERE product_name = ?", [result[0].stock_quantity, total, answer.product], function(error) {
                                 if (error) throw error;
 
-                                // Calculating price
-                                var total = result[0].price * answer.quantity;
-
-                                console.log("\r\nThank you for your purchase. Your order total is $" + total.toFixed(2) + "\r\nYou will receive an e-mail confirmation when your item ships.\r\n");
+                                console.log("\r\nThank you for your purchase. Your order total is $" + total + "\r\nYou will receive an e-mail confirmation when your item ships.\r\n");
 
                                 // Prompt user if they want to make another purchase
                                 makeAnotherPurchase();
