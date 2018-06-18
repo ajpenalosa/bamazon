@@ -11,3 +11,17 @@ CREATE TABLE products (
     price DECIMAL(10,2),
     stock_quantity INT
 );
+
+ALTER TABLE products
+ADD product_sales DECIMAL(10,2);
+
+CREATE TABLE departments (
+	department_id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    department_name VARCHAR(100),
+    over_head_costs DECIMAL(10,2)
+);
+
+SELECT * FROM products;
+
+-- UPDATE products SET stock_quantity = 12, product_sales = 0
+-- WHERE item_id = 2;
