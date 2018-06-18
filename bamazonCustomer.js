@@ -1,7 +1,11 @@
 // Requiring modules
 var mysql = require("mysql");
 var inquirer = require('inquirer');
+const chalk = require('chalk');
 var ui = require('cliui')();
+
+// Track if first time logging in
+var firstLogin = true;
 
 // Connecting to database
 var connection = mysql.createConnection({
@@ -31,9 +35,11 @@ function startShopping() {
     // Array for products to list in the inquirer
     var productInquirer = [];
 
-    console.log("\r\n------------------------------");
-    console.log("     WELCOME TO BAMAZON");
-    console.log("------------------------------\r\n");
+    console.clear();
+
+    console.log(chalk.cyan("\r\n---------------------------------------------------"));
+    console.log(chalk.cyan("                WELCOME TO BAMAZON"));
+    console.log(chalk.cyan("--------------------------------------------------- \r\n"));
     
     // Listing out all products
     connection.query("SELECT * FROM products", function(error, results) {
@@ -44,12 +50,17 @@ function startShopping() {
 
         // Looping through all the items in the database
         for ( var i = 0; i < results.length; i++ ) {
-            productList += results[i].item_id + "\t " + results[i].product_name + "\t "  + results[i].department_name + "\t "  + results[i].price + "\n";
+            productList += results[i].item_id + "\t " + results[i].product_name + "\t "  + results[i].department_name + "\t $"  + results[i].price.toFixed(2) + "\n";
             productInquirer.push(results[i].product_name);
         }
         
-        // Displays everything nicely in columns
-        ui.div(productList);
+        // Need to put ui.div in a conditional so it doesn't duplicate the table
+        if (firstLogin) {
+            // Displays everything nicely in columns
+            ui.div(productList);
+            firstLogin = false;
+        }
+
         console.log(ui.toString());
 
         // Prompt user for action
@@ -79,6 +90,12 @@ function startShopping() {
                 "SELECT * FROM products WHERE product_name = ?", [answer.product], function(error, result) {
                     if (error) throw error;
 
+                    // Displays "unit" or "units" depending on quantity
+                    var unit = "unit";
+                    if ( answer.quantity > 1 ) {
+                        unit = "units";
+                    }
+
                     // If there is enough stock, continue with purchase
                     if ( result[0].stock_quantity > answer.quantity ) {
 
@@ -93,7 +110,14 @@ function startShopping() {
                             "UPDATE products SET stock_quantity = ?, product_sales = ? WHERE product_name = ?", [result[0].stock_quantity, total, answer.product], function(error) {
                                 if (error) throw error;
 
-                                console.log("\r\nThank you for your purchase. Your order total is $" + total + "\r\nYou will receive an e-mail confirmation when your item ships.\r\n");
+                                console.clear();
+                                console.log(chalk.cyan("\r\n---------------------------------------------------"));
+                                console.log(chalk.cyan("           THANK YOU FOR YOUR PURCHASE!"));
+                                console.log(chalk.cyan("--------------------------------------------------- \r\n"));
+
+                                console.log("\r\nYou have purchased " + answer.quantity + " " + unit + " of " + answer.product + ".");
+
+                                console.log("\r\nYour order total is $" + total + "\r\n\nYou will receive an e-mail confirmation when your item ships.\r\n");
 
                                 // Prompt user if they want to make another purchase
                                 makeAnotherPurchase();
@@ -103,8 +127,10 @@ function startShopping() {
 
                     }
                     else {
-                        // If not enough stock, notify user it is out of stock
-                        console.log("\r\nSorry! Insufficient quantity.\r\n");
+                        console.clear();
+                        console.log(chalk.cyan("\r\n---------------------------------------------------"));
+                        console.log(chalk.cyan("           SORRY! INSUFFICIENT QUANTITY."));
+                        console.log(chalk.cyan("--------------------------------------------------- \r\n"));
 
                         makeAnotherPurchase();
                     }
