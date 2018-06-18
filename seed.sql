@@ -14,3 +14,12 @@ VALUES
 ( "Samsung 65-Inch 4K UHD TV", "Television & Video", 1397.99, 0);
 
 SELECT * FROM products;
+
+INSERT INTO departments (department_name, over_head_costs)
+VALUES
+("Toys & Games", 10000),
+("Video Games", 20000),
+("Movies", 30000),
+("Television & Video", 100000);
+
+SELECT * FROM departments;
