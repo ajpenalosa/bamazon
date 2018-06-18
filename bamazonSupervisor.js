@@ -38,7 +38,7 @@ function startSupervising() {
         console.clear();
 
         console.log(chalk.green("\r\n---------------------------------------------------"));
-        console.log(chalk.green("     YOU ARE LOGGED IN"));
+        console.log("     WELCOME TO BAMAZON " + chalk.green("- you are logged in"));
         console.log(chalk.green("---------------------------------------------------\r\n"));
         firstLogin = false;
     }
@@ -80,7 +80,7 @@ function viewProductSales() {
         console.clear();
 
         console.log(chalk.cyan("\r\n---------------------------------------------------"));
-        console.log(chalk.cyan("        PRODUCT SALES BY DEPARTMENT"));
+        console.log(chalk.cyan("            PRODUCT SALES BY DEPARTMENT"));
         console.log(chalk.cyan("--------------------------------------------------- \r\n"));
 
         // Declaring variables to be used for the table
@@ -140,7 +140,7 @@ function createDepartment() {
     console.clear();
 
     console.log(chalk.cyan("\r\n---------------------------------------------------"));
-    console.log(chalk.cyan("     CREATE A NEW DEPARTMENT DEPARTMENT"));
+    console.log(chalk.cyan("        CREATE A NEW DEPARTMENT DEPARTMENT"));
     console.log(chalk.cyan("--------------------------------------------------- \r\n"));
 
     // Prompt user for action
@@ -174,7 +174,7 @@ function createDepartment() {
             function(error, result) {
                 if (error) throw error;
 
-                console.log(chalk.green("\r\nYou have added " + answer.department_name + " to the system.") + "\r\nWhat would you like to do next?\r\n");
+                console.log(chalk.green("\r\nYou have added " + answer.department_name + " to the system.") + "\r\n\nWhat would you like to do next?\r\n");
 
                 // Prompt user if they want they want to do something else
                 startSupervising();
