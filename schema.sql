@@ -22,6 +22,12 @@ CREATE TABLE departments (
 );
 
 SELECT * FROM products;
+SELECT * FROM departments;
 
 -- UPDATE products SET stock_quantity = 12, product_sales = 0
 -- WHERE item_id = 2;
+
+SELECT departments.department_id, departments.department_name, departments.over_head_costs
+FROM products
+INNER JOIN departments ON departments.department_name=products.department_name
+GROUP BY departments.department_name ASC;
