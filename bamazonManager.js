@@ -72,6 +72,7 @@ function startManaging() {
             case "Exit":
             console.log("\r\nGood Bye.\r\n");
             connection.end();
+            break;
         }
      
     });
