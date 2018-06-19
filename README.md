@@ -24,4 +24,4 @@ node bamazonCustomer.js
 
 8. If you answer no, the application ends and you exit the system.
 
-![Customer](images/test.jpg)
+![Customer](images/customer.gif)
