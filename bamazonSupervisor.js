@@ -74,7 +74,7 @@ function startSupervising() {
 
 function viewProductSales() {
     
-    connection.query("SELECT ANY_VALUE(departments.department_id) AS department_id, departments.department_name, ANY_VALUE(departments.over_head_costs) as over_head_costs, ANY_VALUE(products.product_sales) AS product_sales, ANY_VALUE(departments.total_profit) AS total_profit FROM products INNER JOIN departments ON departments.department_name=products.department_name GROUP BY departments.department_name ASC;",function(error, results) {
+    connection.query("SELECT departments.department_id, departments.department_name, departments.over_head_costs, sales_sum.product_sales, sales_sum.product_sales - departments.over_head_costs AS total_profit FROM departments JOIN (SELECT department_name, SUM(product_sales) AS product_sales FROM products GROUP BY department_name) AS sales_sum ON departments.department_name = sales_sum.department_name ORDER BY departments.department_name",function(error, results) {
         if (error) throw error;
 
         console.clear();
