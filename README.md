@@ -61,3 +61,5 @@ node bamazonSupervisor.js
   - **Create New Department -** this option allows the supervisor to add departments to the system.
 
   - **Exit -** this option exits the system.
+
+  ![Supervisor](images/supervisor.gif)
