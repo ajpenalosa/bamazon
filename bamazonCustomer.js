@@ -117,7 +117,7 @@ function startShopping() {
 
                                 console.log("\r\nYou have purchased " + answer.quantity + " " + unit + " of " + answer.product + ".");
 
-                                console.log("\r\nYour order total is $" + total + "\r\n\nYou will receive an e-mail confirmation when your item ships.\r\n");
+                                console.log("\r\nYour order total is $" + total + "\r\n\nYou will receive an e-mail confirmation when your order ships.\r\n");
 
                                 // Prompt user if they want to make another purchase
                                 makeAnotherPurchase();
