@@ -17,11 +17,11 @@ VALUES
 
 SELECT * FROM products;
 
-INSERT INTO departments (department_name, over_head_costs)
+INSERT INTO departments (department_name, over_head_costs, total_profit)
 VALUES
-("Toys & Games", 10000),
-("Video Games", 20000),
-("Movies", 30000),
-("Television & Video", 100000);
+("Toys & Games", 10000, 20000),
+("Video Games", 20000, 30000),
+("Movies", 30000, 40000),
+("Television & Video", 100000, 80000);
 
 SELECT * FROM departments;

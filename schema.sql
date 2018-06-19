@@ -21,5 +21,8 @@ CREATE TABLE departments (
     over_head_costs DECIMAL(10,2)
 );
 
+ALTER TABLE departments
+ADD total_profit DECIMAL(10,2);
+
 SELECT * FROM products;
 SELECT * FROM departments;
