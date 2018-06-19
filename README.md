@@ -4,7 +4,7 @@ Welcome to bAmazon. This application has 3 parts. You can view the store either 
 
 ## Customer
 
-To log in as a customer, type the following in command line:
+To log in as a customer, type the following in the command line:
 
 node bamazonCustomer.js
 
@@ -25,3 +25,39 @@ node bamazonCustomer.js
 8. If you answer no, the application ends and you exit the system.
 
 ![Customer](images/customer.gif)
+
+## Manager
+
+To log in as a manager, type the following in the command line:
+
+node bamazonManager.js
+
+1. When you first log in, you will be presented with a list of menu options to choose from.
+
+  - **View Products for Sale -** choosing this option will display all items available for sale.
+
+  - **View Low Inventory -** choosing this option will display all items with an inventory count lower than 5.
+
+  - **Add to Inventory -** choosing this option will allow the manager to "add more" of any existing item in the store.
+
+  - **Add New Product -** choosing this option will allow the manager to add a completely new product to the store.
+
+  - **Exit -** this option exits the system.
+
+2. After each option, the manager will be asked what they would like to do next and shown the same list of items to choose from.
+
+![Manager](images/manager.gif)
+
+## Supervisor
+
+To log in as a supervisor, type the following in the command line:
+
+node bamazonSupervisor.js
+
+1. When you first log in, you will be presented with a list of menu options to choose from.
+
+  - **View Product Sales by Department -** choosing this option will display all categories along with their overhead costs, product sales, and total profit.
+
+  - **Create New Department -** this option allows the supervisor to add departments to the system.
+
+  - **Exit -** this option exits the system.
