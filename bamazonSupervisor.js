@@ -48,13 +48,13 @@ function startSupervising() {
             type: "list",
             name: "options",
             message: "Menu Options:",
-            choices: ["View Products Sales by Department", "Create New Department", "Exit"]
+            choices: ["View Product Sales by Department", "Create New Department", "Exit"]
         }
     ]).then(choice => {
         
         switch(choice.options) {
 
-            case "View Products Sales by Department":
+            case "View Product Sales by Department":
             viewProductSales();
             break;
             
