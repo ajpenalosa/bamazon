@@ -91,7 +91,7 @@ function viewProducts() {
     console.log(chalk.cyan("--------------------------------------------------- \r\n"));
     
     // Listing out all products
-    connection.query("SELECT * FROM products", function(error, results) {
+    connection.query("SELECT * FROM products ORDER BY department_name, product_name", function(error, results) {
         if (error) throw error;
 
         // Creating a string to be used in the cliui module to display items in columns
@@ -131,7 +131,7 @@ function viewLowInventory() {
     console.log(chalk.cyan("--------------------------------------------------- \r\n"));
     
     // Listing out all products with inventory count lower than 5
-    connection.query("SELECT * FROM products WHERE stock_quantity < 5", function(error, results) {
+    connection.query("SELECT * FROM products WHERE stock_quantity < 5 ORDER BY department_name, product_name", function(error, results) {
         if (error) throw error;
 
         // Creating a string to be used in the cliui module to display items in columns
