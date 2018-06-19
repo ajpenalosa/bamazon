@@ -102,12 +102,14 @@ function startShopping() {
                         // Calculating total price
                         var total = (result[0].price * answer.quantity).toFixed(2);
 
+                        var productSales = parseInt(result[0].product_sales) + parseInt(total);
+
                         // Subtract quantity purchase from the stock quantity
                         result[0].stock_quantity -= answer.quantity;
 
                         // Update the quantity in the database
                         connection.query(
-                            "UPDATE products SET stock_quantity = ?, product_sales = ? WHERE product_name = ?", [result[0].stock_quantity, total, answer.product], function(error) {
+                            "UPDATE products SET stock_quantity = ?, product_sales = ? WHERE product_name = ?", [result[0].stock_quantity, productSales, answer.product], function(error) {
                                 if (error) throw error;
 
                                 console.clear();
